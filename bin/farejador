@@ -1,0 +1,14 @@
+<?php
+
+include_once __DIR__ . '/../../../autoload.php';
+
+use Farejador\Farejador;
+
+var_dump($argc);
+var_dump($argv);
+exit;
+
+$farejador = new Farejador();
+
+echo "alo mamae";
+exit;

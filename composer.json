@@ -13,5 +13,8 @@
     "psr-4": {
       "Farejador\\": "./src"
     }
-  }
+  },
+  "bin": [
+    "bin/farejador"
+  ]
 }
