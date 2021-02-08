@@ -1,0 +1,17 @@
+{
+  "name": "farejador",
+  "authors": [
+    {
+      "name": "cwi",
+      "email": "rodrioalecio@cwi.com.br"
+    }
+  ],
+  "require": {
+    "php": "~7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Farejador\\": "./src"
+    }
+  }
+}
