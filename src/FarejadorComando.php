@@ -38,12 +38,21 @@ abstract class FarejadorComando
         $resultado = null;
         $retorno = null;
 
-//        exec("cd " . $this->diretorio, $resultado, $retorno);
         exec($comando, $resultado, $retorno);
 
         return [
             self::RESULTADO_KEY => $resultado,
             self::RETORNO_KEY => $retorno
         ];
+    }
+
+    public function getDiretorio()
+    {
+        return $this->diretorio;
+    }
+
+    public function setDiretorio($diretorio)
+    {
+        $this->diretorio = $diretorio;
     }
 }

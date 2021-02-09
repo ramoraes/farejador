@@ -1,18 +1,19 @@
 #!/usr/bin/env php
 <?php
-$dir = 'd:/DEV/InfraCommerce/DEV/unilever/site';
 
 include_once __DIR__ . '/../../../autoload.php';
 
 use Farejador\Farejador;
 use Farejador\GitComando;
 use Farejador\PhpCsComando;
+use Farejador\FarejadorConfigurador\FarejadorConfiguradorArgV;
 
-$gitComando = new GitComando($dir);
-$phpCsComando = new PhpCsComando($dir);
+$gitComando = new GitComando('./');
+$phpCsComando = new PhpCsComando('./');
 
 $farejador = new Farejador($gitComando, $phpCsComando);
-$farejador->farejar();
 
-//echo "alo mamae";
-exit;
+$farejadorConfigurador = new FarejadorConfiguradorArgV($farejador);
+$farejadorConfigurador->configurar($argv);
+
+$farejador->farejar();
