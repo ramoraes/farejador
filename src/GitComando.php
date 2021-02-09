@@ -65,8 +65,7 @@ class GitComando extends FarejadorComando
             return [];
         }
 
-        $comando = 'git diff ' . $arquivoParaFarejar->getLocalizacaoDoArquivo();
-
+        $comando = 'git -C ' . $this->diretorio . ' diff -- ' . $arquivoParaFarejar->getLocalizacaoDoArquivo();
         $linhasDoDiff = $this->executarComando($comando);
 
         $linhasAlteradas = [];

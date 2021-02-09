@@ -17,11 +17,6 @@ class PhpCsComando extends FarejadorComando
 
     public function obterJsonDoPHPCodeSnifer(ArquivoParaFarejar $arquivoParaFarejar)
     {
-//        print "\n\n\n";
-//        print 'phpcs --standard=PSR1 --report=json ' . $arquivoParaFarejar->getLocalizacaoDoArquivo();
-//        print "\n\n\n";
-//        exit;
-
         $resultado = $this->executarComando('phpcs --standard=PSR1 --report=json ' . $arquivoParaFarejar->getLocalizacaoDoArquivo());
 
         $resultadoSniffer = [];
