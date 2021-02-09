@@ -9,51 +9,26 @@ class Farejador {
     private $arquivosParaFarejar = [];
     private $situacoesFarejadas = [];
 
-    public function __construct()
+    private $gitComando = null;
+    private $phpCsComando = null;
+
+    public function __construct(GitComando $gitComando, PhpCsComando $phpCsComando)
     {
+        $this->gitComando = $gitComando;
+        $this->phpCsComando = $phpCsComando;
+
         $this->validarDependencias();
     }
 
     private function validarDependencias()
     {
-        $retornoGit = Comando::executarComandoPegandoORetorno('git --version');
-
-        if ($retornoGit !== 0) {
-            throw new FarejadorDependenciaException('Nao foi possivel executar o git.');
-        }
-
-        $retornoPhpCs = Comando::executarComandoPegandoORetorno('phpcs --version');
-
-        if ($retornoPhpCs !== 0) {
-            throw new FarejadorDependenciaException('Nao foi possivel executar o phpcs.');
-        }
+        $this->gitComando->validarExecucao();
+        $this->phpCsComando->validarExecucao();
     }
 
     private function carregarArquivosParaFarejar()
     {
-        $this->carregarArquivosAlteradosParaFarejar();
-        $this->carregarArquivosNovosParaFarejar();
-    }
-
-    private function carregarArquivosAlteradosParaFarejar()
-    {
-        $listaCaminhoArquivos = Comando::executarComando('git diff --name-only | grep .php$');
-
-        foreach ($listaCaminhoArquivos as $caminhoArquivo) {
-            $this->arquivosParaFarejar[] = new ArquivoParaFarejar($caminhoArquivo, false);
-        }
-    }
-
-    private function carregarArquivosNovosParaFarejar()
-    {
-        $listaCaminhoArquivos = Comando::executarComando('git status -s | grep "??" | grep .php$');
-
-        foreach ($listaCaminhoArquivos as $caminhoArquivo) {
-            $this->arquivosParaFarejar[] = new ArquivoParaFarejar(
-                str_replace('?? ', '', $caminhoArquivo),
-                true
-            );
-        }
+        $this->arquivosParaFarejar = $this->gitComando->carregarArquivosAlterados();
     }
 
     private function farejarArquivosCarregados()
@@ -66,8 +41,8 @@ class Farejador {
 
     private function farejarLinhasAlteradasNoArquivo(ArquivoParaFarejar $arquivoParaFarejar)
     {
-        $linhasAlteradas = $arquivoParaFarejar->obterLinhasAlteradasDoArquivo();
-        $situacoesFarejadas = $this->obterJsonDoPHPCodeSnifer($arquivoParaFarejar);
+        $linhasAlteradas = $this->gitComando->obterLinhasAlteradasDoArquivo($arquivoParaFarejar);
+        $situacoesFarejadas = $this->phpCsComando->obterJsonDoPHPCodeSnifer($arquivoParaFarejar);
 
         $situacoesFarejadasNasLinhasAlteradas = [
             'file' => $arquivoParaFarejar->getLocalizacaoDoArquivo(),
@@ -85,24 +60,6 @@ class Farejador {
         return $situacoesFarejadasNasLinhasAlteradas;
     }
 
-    private function obterJsonDoPHPCodeSnifer(ArquivoParaFarejar $arquivoParaFarejar)
-    {
-        $resultado = Comando::executarComando('phpcs --standard=PSR1 --report=json ' . $arquivoParaFarejar->getLocalizacaoDoArquivo());
-
-        $resultadoSniffer = [];
-
-        if ($resultado && $resultado[0]) {
-            $resultadoSnifferCompleto = json_decode($resultado[0], true);
-
-            $resultadosDosArquivos = array_slice($resultadoSnifferCompleto['files'], 0, 1);
-            $resultadoDoArquivo = reset($resultadosDosArquivos);
-
-            $resultadoSniffer = $resultadoDoArquivo['messages'];
-        }
-
-        return $resultadoSniffer;
-    }
-
     private function imprimirSituacoesFarejadas()
     {
         print_r($this->situacoesFarejadas);
@@ -115,6 +72,3 @@ class Farejador {
         $this->imprimirSituacoesFarejadas();
     }
 }
-
-//$farejador = New Farejador();
-//$farejador->farejar();
