@@ -1,15 +1,18 @@
 #!/usr/bin/env php
 <?php
+$dir = 'd:/DEV/InfraCommerce/DEV/unilever/site';
 
 include_once __DIR__ . '/../../../autoload.php';
 
 use Farejador\Farejador;
+use Farejador\GitComando;
+use Farejador\PhpCsComando;
 
-var_dump($argc);
-var_dump($argv);
-exit;
+$gitComando = new GitComando($dir);
+$phpCsComando = new PhpCsComando($dir);
 
-$farejador = new Farejador();
+$farejador = new Farejador($gitComando, $phpCsComando);
+$farejador->farejar();
 
-echo "alo mamae";
+//echo "alo mamae";
 exit;
