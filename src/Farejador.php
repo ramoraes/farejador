@@ -71,4 +71,24 @@ class Farejador {
         $this->farejarArquivosCarregados();
         $this->imprimirSituacoesFarejadas();
     }
+
+    public function getArquivosParaFarejar(): array
+    {
+        return $this->arquivosParaFarejar;
+    }
+
+    public function getSituacoesFarejadas(): array
+    {
+        return $this->situacoesFarejadas;
+    }
+
+    public function getGitComando(): GitComando
+    {
+        return $this->gitComando;
+    }
+
+    public function getPhpCsComando(): PhpCsComando
+    {
+        return $this->phpCsComando;
+    }
 }
