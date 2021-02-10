@@ -28,7 +28,7 @@ class GitComando extends FarejadorComando
 
     private function carregarArquivosAlteradosParaFarejar()
     {
-        $listaCaminhoArquivos = $this->executarComando('git -C ' . $this->diretorio . ' diff --name-only | grep .php$');
+        $listaCaminhoArquivos = $this->executarComando('git -C ' . $this->diretorio . ' diff --name-only 2>/dev/null | grep .php$');
 
         $arquivosAlterados = [];
 
@@ -66,7 +66,7 @@ class GitComando extends FarejadorComando
             return [];
         }
 
-        $comando = 'git -C ' . $this->diretorio . ' diff -- ' . $arquivoParaFarejar->getLocalizacaoDoArquivo();
+        $comando = 'git -C ' . $this->diretorio . ' diff -- ' . $arquivoParaFarejar->getLocalizacaoDoArquivo() . ' 2>/dev/null';
         $linhasDoDiff = $this->executarComando($comando);
 
         $linhasAlteradas = [];
