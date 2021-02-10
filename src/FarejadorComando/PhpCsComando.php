@@ -1,8 +1,9 @@
 <?php
 
-namespace Farejador;
+namespace Farejador\FarejadorComando;
 
 use Farejador\Exceptions\FarejadorDependenciaException;
+use Farejador\ArquivoParaFarejar;
 
 class PhpCsComando extends FarejadorComando
 {

@@ -4,8 +4,8 @@
 include_once __DIR__ . '/../../../autoload.php';
 
 use Farejador\Farejador;
-use Farejador\GitComando;
-use Farejador\PhpCsComando;
+use Farejador\FarejadorComando\GitComando;
+use Farejador\FarejadorComando\PhpCsComando;
 use Farejador\FarejadorConfigurador\FarejadorConfiguradorArgV;
 
 $gitComando = new GitComando('./');

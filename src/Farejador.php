@@ -2,7 +2,8 @@
 
 namespace Farejador;
 
-use Farejador\Exceptions\FarejadorDependenciaException;
+use Farejador\FarejadorComando\GitComando;
+use Farejador\FarejadorComando\PhpCsComando;
 
 class Farejador {
 
