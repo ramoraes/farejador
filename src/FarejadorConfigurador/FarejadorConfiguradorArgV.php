@@ -19,6 +19,7 @@ class FarejadorConfiguradorArgV
     private function carregarConfiguradores()
     {
         $this->configuradores[] = new FarejadorConfiguradorDiretorio($this->farejador);
+        $this->configuradores[] = new FarejadorConfiguradorPhpCsStandard($this->farejador);
 //        .
 //        .
 //        .

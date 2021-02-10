@@ -7,6 +7,8 @@ use Farejador\ArquivoParaFarejar;
 
 class PhpCsComando extends FarejadorComando
 {
+    private $padrao = 'PSR1';
+
     public function validarExecucao()
     {
         $retornoPhpCs = $this->executarComandoPegandoORetorno('phpcs --version');
@@ -18,7 +20,7 @@ class PhpCsComando extends FarejadorComando
 
     public function obterJsonDoPHPCodeSnifer(ArquivoParaFarejar $arquivoParaFarejar)
     {
-        $resultado = $this->executarComando('phpcs --standard=PSR1 --report=json ' . $arquivoParaFarejar->getLocalizacaoDoArquivo());
+        $resultado = $this->executarComando('phpcs --standard=' . $this->padrao . ' --report=json ' . $arquivoParaFarejar->getLocalizacaoDoArquivo());
 
         $resultadoSniffer = [];
 
@@ -32,5 +34,27 @@ class PhpCsComando extends FarejadorComando
         }
 
         return $resultadoSniffer;
+    }
+
+    public function getOpcoesDePadrao()
+    {
+        $opcoesDePadrao = [];
+
+        $resultadoComando = $this->executarComando('phpcs --i');
+
+        
+
+    }
+
+    public function getPadrao()
+    {
+        return $this->padrao;
+    }
+
+    public function setPadrao($padrao)
+    {
+        $this->padrao = $padrao;
+
+        return $this;
     }
 }
