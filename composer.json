@@ -1,9 +1,10 @@
 {
   "name": "farejador/farejador",
+  "description": "Script para realizar sniff (phpcs) de código legado em projetos que utilizam git como VCS, considerando apenas as linhas alteradas",
   "authors": [
     {
-      "name": "cwi",
-      "email": "rodrioalecio@cwi.com.br"
+      "name": "Rodrigo Alécio de Morae",
+      "email": "r.a.moraes@gmail.com"
     }
   ],
   "require": {
