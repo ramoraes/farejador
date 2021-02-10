@@ -4,6 +4,7 @@ namespace Farejador\FarejadorConfigurador;
 
 use Farejador\Farejador;
 use Farejador\FarejadorConfigurador\Configurador\FarejadorConfiguradorDiretorio;
+use Farejador\FarejadorConfigurador\Configurador\FarejadorConfiguradorPhpCsStandard;
 
 class FarejadorConfiguradorArgV
 {

@@ -40,10 +40,15 @@ class PhpCsComando extends FarejadorComando
     {
         $opcoesDePadrao = [];
 
-        $resultadoComando = $this->executarComando('phpcs --i');
+        $resultadoComando = $this->executarComando('phpcs -i');
 
-        
+        $matches = [];
+        preg_match_all('/(\s[a-zA-Z0-9]+(\,|$|\sand))/m', $resultadoComando[0], $matches);
+        foreach ($matches[0] as $padraoIdentificado) {
+            $opcoesDePadrao[] = str_replace([' ', ',', 'and'], '', $padraoIdentificado);
+        }
 
+        return $opcoesDePadrao;
     }
 
     public function getPadrao()
