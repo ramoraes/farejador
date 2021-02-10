@@ -9,8 +9,8 @@ use Farejador\FarejadorConfigurador\FarejadorConfiguradorInterface;
 class FarejadorConfiguradorDiretorio implements FarejadorConfiguradorInterface
 {
     const CHAVE_CURTA_DA_CONFIG = '-d';
-    const CHAVE_DA_CONFIG = '-directory';
-    const CHAVE_DA_CONFIG_PT = '-diretorio';
+    const CHAVE_DA_CONFIG = '--directory';
+    const CHAVE_DA_CONFIG_PT = '--diretorio';
     const CHAVES_DA_CONFIG = [
         self::CHAVE_DA_CONFIG,
         self::CHAVE_CURTA_DA_CONFIG,
